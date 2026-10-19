@@ -1,3 +1,10 @@
 /~/
 .claude*/
 PLAN.md
+
+# Per-user Xcode state
+xcuserdata/
+
+# Build output
+.build/
+DerivedData/
