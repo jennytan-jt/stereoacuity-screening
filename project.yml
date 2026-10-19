@@ -1,0 +1,54 @@
+# XcodeGen spec for the Stereo app. Regenerate the Xcode project with
+# `xcodegen generate` after editing this file; the .xcodeproj itself is
+# generated output and shouldn't be hand-edited.
+name: Stereo
+options:
+  bundleIdPrefix: com.jt
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+
+packages:
+  StereoCore:
+    path: StereoCore
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    # Personal Team for the developer's Apple ID. Kept here rather than only
+    # in Xcode's Signing & Capabilities tab, which regeneration would reset.
+    DEVELOPMENT_TEAM: 4CJR3DRR9H
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  Stereo:
+    type: application
+    platform: iOS
+    sources:
+      - App
+    dependencies:
+      - package: StereoCore
+    settings:
+      base:
+        # Must be unique per developer for signing.
+        PRODUCT_BUNDLE_IDENTIFIER: com.jt.stereo
+        TARGETED_DEVICE_FAMILY: "1"   # iPhone only
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIStatusBarHidden: YES
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"
+
+schemes:
+  Stereo:
+    build:
+      targets:
+        Stereo: all
+    # Run in Release: a 900 px field takes ~0.05-0.09 s optimized but
+    # 1-2 s unoptimized, which makes tapping through the ladder sluggish.
+    # Switch to Debug when you need the debugger.
+    run:
+      config: Release
+    archive:
+      config: Release
